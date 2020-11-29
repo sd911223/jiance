@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BusinessDetectMapper">
+    
+    <resultMap type="BusinessDetect" id="BusinessDetectResult">
+        <result property="id"    column="id"    />
+        <result property="detectAddress"    column="detect_address"    />
+        <result property="detectDepartment"    column="detect_department"    />
+        <result property="detectResult"    column="detect_result"    />
+        <result property="detectData"    column="detect_data"    />
+        <result property="detectAgency"    column="detect_agency"    />
+        <result property="examineDays"    column="examine_days"    />
+        <result property="isEffective"    column="is_effective"    />
+        <result property="reserved1"    column="reserved_1"    />
+        <result property="reserved2"    column="reserved_2"    />
+        <result property="reserved3"    column="reserved_3"    />
+        <result property="reserved4"    column="reserved_4"    />
+        <result property="reserved5"    column="reserved_5"    />
+    </resultMap>
+
+    <sql id="selectBusinessDetectVo">
+        select id, detect_address, detect_department, detect_result, detect_data, detect_agency, examine_days, is_effective, reserved_1, reserved_2, reserved_3, reserved_4, reserved_5 from business_detect
+    </sql>
+
+    <select id="selectBusinessDetectList" parameterType="BusinessDetect" resultMap="BusinessDetectResult">
+        <include refid="selectBusinessDetectVo"/>
+        <where>  
+            <if test="detectAddress != null  and detectAddress != ''"> and detect_address = #{detectAddress}</if>
+            <if test="detectDepartment != null  and detectDepartment != ''"> and detect_department = #{detectDepartment}</if>
+            <if test="detectResult != null  and detectResult != ''"> and detect_result = #{detectResult}</if>
+            <if test="detectData != null "> and detect_data = #{detectData}</if>
+            <if test="detectAgency != null  and detectAgency != ''"> and detect_agency = #{detectAgency}</if>
+            <if test="examineDays != null "> and examine_days = #{examineDays}</if>
+            <if test="isEffective != null  and isEffective != ''"> and is_effective = #{isEffective}</if>
+            <if test="reserved1 != null  and reserved1 != ''"> and reserved_1 = #{reserved1}</if>
+            <if test="reserved2 != null  and reserved2 != ''"> and reserved_2 = #{reserved2}</if>
+            <if test="reserved3 != null  and reserved3 != ''"> and reserved_3 = #{reserved3}</if>
+            <if test="reserved4 != null  and reserved4 != ''"> and reserved_4 = #{reserved4}</if>
+            <if test="reserved5 != null  and reserved5 != ''"> and reserved_5 = #{reserved5}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusinessDetectById" parameterType="Long" resultMap="BusinessDetectResult">
+        <include refid="selectBusinessDetectVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusinessDetect" parameterType="BusinessDetect">
+        insert into business_detect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="detectAddress != null">detect_address,</if>
+            <if test="detectDepartment != null">detect_department,</if>
+            <if test="detectResult != null">detect_result,</if>
+            <if test="detectData != null">detect_data,</if>
+            <if test="detectAgency != null">detect_agency,</if>
+            <if test="examineDays != null">examine_days,</if>
+            <if test="isEffective != null">is_effective,</if>
+            <if test="reserved1 != null">reserved_1,</if>
+            <if test="reserved2 != null">reserved_2,</if>
+            <if test="reserved3 != null">reserved_3,</if>
+            <if test="reserved4 != null">reserved_4,</if>
+            <if test="reserved5 != null">reserved_5,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="detectAddress != null">#{detectAddress},</if>
+            <if test="detectDepartment != null">#{detectDepartment},</if>
+            <if test="detectResult != null">#{detectResult},</if>
+            <if test="detectData != null">#{detectData},</if>
+            <if test="detectAgency != null">#{detectAgency},</if>
+            <if test="examineDays != null">#{examineDays},</if>
+            <if test="isEffective != null">#{isEffective},</if>
+            <if test="reserved1 != null">#{reserved1},</if>
+            <if test="reserved2 != null">#{reserved2},</if>
+            <if test="reserved3 != null">#{reserved3},</if>
+            <if test="reserved4 != null">#{reserved4},</if>
+            <if test="reserved5 != null">#{reserved5},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusinessDetect" parameterType="BusinessDetect">
+        update business_detect
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="detectAddress != null">detect_address = #{detectAddress},</if>
+            <if test="detectDepartment != null">detect_department = #{detectDepartment},</if>
+            <if test="detectResult != null">detect_result = #{detectResult},</if>
+            <if test="detectData != null">detect_data = #{detectData},</if>
+            <if test="detectAgency != null">detect_agency = #{detectAgency},</if>
+            <if test="examineDays != null">examine_days = #{examineDays},</if>
+            <if test="isEffective != null">is_effective = #{isEffective},</if>
+            <if test="reserved1 != null">reserved_1 = #{reserved1},</if>
+            <if test="reserved2 != null">reserved_2 = #{reserved2},</if>
+            <if test="reserved3 != null">reserved_3 = #{reserved3},</if>
+            <if test="reserved4 != null">reserved_4 = #{reserved4},</if>
+            <if test="reserved5 != null">reserved_5 = #{reserved5},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusinessDetectById" parameterType="Long">
+        delete from business_detect where id = #{id}
+    </delete>
+
+    <delete id="deleteBusinessDetectByIds" parameterType="String">
+        delete from business_detect where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
