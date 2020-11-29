@@ -1,109 +1,114 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <th:block th:include="include :: header('修改【商户检测】')" />
+    <th:block th:include="include :: header('修改商户检测')" />
     <th:block th:include="include :: datetimepicker-css" />
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-detect-edit" th:object="${businessDetect}">
-            <input name="id" th:field="*{id}" type="hidden">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检测地址：</label>
-                <div class="col-sm-8">
-                    <input name="detectAddress" th:field="*{detectAddress}" class="form-control" type="text">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-detect-edit" th:object="${businessDetect}">
+        <input name="id" th:field="*{id}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检测地址：</label>
+            <div class="col-sm-8">
+                <input name="detectAddress" th:field="*{detectAddress}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检测部门：</label>
+            <div class="col-sm-8">
+                <input name="detectDepartment" th:field="*{detectDepartment}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检测结果：</label>
+            <div class="col-sm-8">
+                <input name="detectResult" th:field="*{detectResult}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检测时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="detectData" th:value="${#dates.format(businessDetect.detectData, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检测部门：</label>
-                <div class="col-sm-8">
-                    <input name="detectDepartment" th:field="*{detectDepartment}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检测机构：</label>
+            <div class="col-sm-8">
+                <input name="detectAgency" th:field="*{detectAgency}" class="form-control" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检测结果：</label>
-                <div class="col-sm-8">
-                    <input name="detectResult" th:field="*{detectResult}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">检验天数：</label>
+            <div class="col-sm-8">
+                <input name="examineDays" th:field="*{examineDays}" class="form-control" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检测时间：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="detectData" th:value="${#dates.format(businessDetect.detectData, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
+        </div>
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">是否有效 effective:有效/invalid:无效：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <input name="isEffective" th:field="*{isEffective}" class="form-control" type="text">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否过期：</label>
+            <div class="col-sm-8">
+                <select name="reserved1" class="form-control m-b">
+                    <option value="">所有</option>
+                    <option value="expired">过期</option>
+                    <option value="Nexpired">未过期</option>
+                </select>
+                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检测机构：</label>
-                <div class="col-sm-8">
-                    <input name="detectAgency" th:field="*{detectAgency}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">检验天数：</label>
-                <div class="col-sm-8">
-                    <input name="examineDays" th:field="*{examineDays}" class="form-control" type="text">
-                </div>
-            </div>
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">是否有效 effective:有效/invalid:无效：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="isEffective" th:field="*{isEffective}" class="form-control" type="text">-->
-<!--                </div>-->
+        </div>
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">预留2：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <input name="reserved2" th:field="*{reserved2}" class="form-control" type="text">-->
 <!--            </div>-->
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">预留1：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="reserved1" th:field="*{reserved1}" class="form-control" type="text">-->
-<!--                </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">预留3：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <input name="reserved3" th:field="*{reserved3}" class="form-control" type="text">-->
 <!--            </div>-->
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">预留2：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="reserved2" th:field="*{reserved2}" class="form-control" type="text">-->
-<!--                </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">预留4：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <input name="reserved4" th:field="*{reserved4}" class="form-control" type="text">-->
 <!--            </div>-->
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">预留3：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="reserved3" th:field="*{reserved3}" class="form-control" type="text">-->
-<!--                </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">预留5：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <input name="reserved5" th:field="*{reserved5}" class="form-control" type="text">-->
 <!--            </div>-->
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">预留4：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="reserved4" th:field="*{reserved4}" class="form-control" type="text">-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="form-group">    -->
-<!--                <label class="col-sm-3 control-label">预留5：</label>-->
-<!--                <div class="col-sm-8">-->
-<!--                    <input name="reserved5" th:field="*{reserved5}" class="form-control" type="text">-->
-<!--                </div>-->
-<!--            </div>-->
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
-    <script th:inline="javascript">
-        var prefix = ctx + "system/detect";
-        $("#form-detect-edit").validate({
-            focusCleanup: true
-        });
+<!--        </div>-->
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: datetimepicker-js" />
+<script th:inline="javascript">
+    var prefix = ctx + "system/detect";
+    $("#form-detect-edit").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-detect-edit').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-detect-edit').serialize());
         }
+    }
 
-        $("input[name='detectData']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
-    </script>
+    $("input[name='detectData']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+</script>
 </body>
 </html>

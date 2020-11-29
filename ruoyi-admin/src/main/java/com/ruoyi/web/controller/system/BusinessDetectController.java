@@ -5,11 +5,9 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.BusinessDetect;
 import com.ruoyi.system.service.IBusinessDetectService;
-import com.ruoyi.web.controller.demo.domain.UserOperateModel;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -54,12 +51,18 @@ public class BusinessDetectController extends BaseController {
         //判断是否过期
         if (!list.isEmpty()) {
             for (int i = 0; i < list.size(); i++) {
-                Date detectData = list.get(i).getDetectData();
-                int days = DateUtils.differentDaysByMillisecond(detectData, new Date());
-                System.out.println(days);
-                if (days >= list.get(i).getExamineDays()) {
-                    list.get(i).setReserved1("expired");
+                if (("expired").equals(list.get(i).getReserved1())) {
+                    list.get(i).setReserved1("过期");
                 }
+                if ((("Nexpired").equals(list.get(i).getReserved1())) || (("").equals(list.get(i).getReserved1()))) {
+                    list.get(i).setReserved1("未过期");
+                }
+//                Date detectData = list.get(i).getDetectData();
+//                int days = DateUtils.differentDaysByMillisecond(detectData, new Date());
+//                System.out.println(days);
+//                if (days >= list.get(i).getExamineDays()) {
+//                    list.get(i).setReserved1("expired");
+//                }
             }
         }
 
@@ -120,6 +123,19 @@ public class BusinessDetectController extends BaseController {
         BusinessDetect businessDetect = businessDetectService.selectBusinessDetectById(id);
         mmap.put("businessDetect", businessDetect);
         return prefix + "/edit";
+    }
+
+    /**
+     * 修改【商户检测】
+     */
+    @GetMapping("/edit1")
+    public String edit1(@RequestParam("id") Long id, ModelMap mmap) {
+        BusinessDetect businessDetect = businessDetectService.selectBusinessDetectById(id);
+        SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
+        String format = sdf.format(businessDetect.getDetectData());
+        businessDetect.setReserved2(format);
+        mmap.put("businessDetect", businessDetect);
+        return "/index22";
     }
 
     /**

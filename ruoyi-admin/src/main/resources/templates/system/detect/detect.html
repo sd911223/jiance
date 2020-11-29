@@ -24,11 +24,9 @@
                         </li>
                         <li class="select-time">
                             <label>检测时间：</label>
-                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
-                                   name="params[beginDetectData]"/>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginDetectData]"/>
                             <span>-</span>
-                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
-                                   name="params[endDetectData]"/>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endDetectData]"/>
                         </li>
                         <li>
                             <label>检测机构：</label>
@@ -38,45 +36,43 @@
                             <label>检验天数：</label>
                             <input type="text" name="examineDays"/>
                         </li>
-                        <!--                            <li>-->
-                        <!--                                <label>是否有效 effective:有效/invalid:无效：</label>-->
-                        <!--                                <input type="text" name="isEffective"/>-->
-                        <!--                            </li>-->
+<!--                        <li>-->
+<!--                            <label>是否有效：</label>-->
+<!--                            <input type="text" name="isEffective"/>-->
+<!--                        </li>-->
                         <li>
-<!--                            <label>是否过期：</label>-->
-                            是否过期：<select name="status">
-                            <option value="">所有</option>
-                            <option value="0">过期</option>
-                            <option value="1">未过期</option>
-                        </select>
-                            <input type="text" name="reserved1"/>
+                            <label>是否过期：</label>
+                            <select name="reserved1">
+                                <option value="">所有</option>
+                                <option value="expired">过期</option>
+                                <option value="Nexpired">未过期</option>
+                            </select>
                         </li>
-                        <!--                            <li>-->
-                        <!--                                <label>预留2：</label>-->
-                        <!--                                <input type="text" name="reserved2"/>-->
-                        <!--                            </li>-->
-                        <!--                            <li>-->
-                        <!--                                <label>预留3：</label>-->
-                        <!--                                <input type="text" name="reserved3"/>-->
-                        <!--                            </li>-->
-                        <!--                            <li>-->
-                        <!--                                <label>预留4：</label>-->
-                        <!--                                <input type="text" name="reserved4"/>-->
-                        <!--                            </li>-->
-                        <!--                            <li>-->
-                        <!--                                <label>预留5：</label>-->
-                        <!--                                <input type="text" name="reserved5"/>-->
-                        <!--                            </li>-->
+<!--                        <li>-->
+<!--                            <label>预留2：</label>-->
+<!--                            <input type="text" name="reserved2"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <label>预留3：</label>-->
+<!--                            <input type="text" name="reserved3"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <label>预留4：</label>-->
+<!--                            <input type="text" name="reserved4"/>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <label>预留5：</label>-->
+<!--                            <input type="text" name="reserved5"/>-->
+<!--                        </li>-->
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
-                                    class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
-                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
             </form>
         </div>
+
 
         <div class="btn-group-sm" id="toolbar" role="group">
             <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:detect:add">
@@ -101,8 +97,15 @@
             <table id="bootstrap-table"></table>
         </div>
     </div>
+
+
+
+
+
+
 </div>
 <th:block th:include="include :: footer"/>
+<script th:src="@{/js/jquery.qrcode.min.js}"></script>c
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('system:detect:edit')}]];
     var removeFlag = [[${@permission.hasPermi('system:detect:remove')}]];
@@ -156,10 +159,7 @@
                 // },
                 {
                     field: 'reserved1',
-                    title: '是否过期',
-                    formatter: function (value, row, index) {
-                        return '<div style="width:400px;">'+value+'</div>';
-                    }
+                    title: '是否过期'
                 },
                 // {
                 //     field: 'reserved2',
@@ -182,14 +182,56 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var actions = [];
+
+
+                        var sb='   <div class="modal inmodal fade" id="'+ row.id +'" tabindex="-1" role="dialog" aria-hidden="true">';
+                        sb+='        <div class="modal-dialog modal-sm">';
+                        sb+='            <div class="modal-content">';
+                        sb+='                <div class="modal-header">';
+                        sb+='                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>';
+                        sb+='                    </button>';
+                        sb+='                    <h4 class="modal-title">二维码</h4>';
+                        sb+='                </div>';
+                        sb+='                <div class="modal-body">';
+                        sb+='                </div>';
+                        sb+='            </div>';
+                        sb+='        </div>';
+                        sb+='    </div>';
+
+
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-primary btn-xs ' + removeFlag + '" href="javascript:void(0)"  onclick="selectCheckUser(\'' + row.id + '\')"><i class="fa"></i>生成二维码</a>');
+                        actions.push(sb);
+
                         return actions.join('');
                     }
                 }]
         };
         $.table.init(options);
     });
+
+    function selectCheckUser(id){
+        var elDom = '#'+ id;
+        $(elDom).modal('show');
+        setTimeout(function(){
+            $(elDom).find('.modal-body').html("");
+            $(elDom).find('.modal-body').qrcode({
+                render: "canvas", //也可以替换为table
+                width: 200,
+                height: 200,
+                text: "/system/detect/edit1/id="+id
+            });
+        },0)
+        // $.modal.open("选择用户", prefix + "/check");
+    }
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#formId').serialize());
+        }
+    }
+
 </script>
 </body>
 <!-- 导入区域 -->
