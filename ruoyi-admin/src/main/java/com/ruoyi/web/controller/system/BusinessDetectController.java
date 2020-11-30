@@ -57,12 +57,6 @@ public class BusinessDetectController extends BaseController {
                 if ((("Nexpired").equals(list.get(i).getReserved1())) || (("").equals(list.get(i).getReserved1()))) {
                     list.get(i).setReserved1("未过期");
                 }
-//                Date detectData = list.get(i).getDetectData();
-//                int days = DateUtils.differentDaysByMillisecond(detectData, new Date());
-//                System.out.println(days);
-//                if (days >= list.get(i).getExamineDays()) {
-//                    list.get(i).setReserved1("expired");
-//                }
             }
         }
 
@@ -107,7 +101,7 @@ public class BusinessDetectController extends BaseController {
      * 新增保存【商户检测】
      */
     @RequiresPermissions("system:detect:add")
-    @Log(title = "【请填写功能名称】", businessType = BusinessType.INSERT)
+    @Log(title = "【新增商户检测】", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(BusinessDetect businessDetect) {
@@ -142,7 +136,7 @@ public class BusinessDetectController extends BaseController {
      * 修改保存【商户检测】
      */
     @RequiresPermissions("system:detect:edit")
-    @Log(title = "【商户检测】", businessType = BusinessType.UPDATE)
+    @Log(title = "【修改保存商户检测】", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(BusinessDetect businessDetect) {
@@ -153,7 +147,7 @@ public class BusinessDetectController extends BaseController {
      * 删除【商户检测】
      */
     @RequiresPermissions("system:detect:remove")
-    @Log(title = "【商户检测】", businessType = BusinessType.DELETE)
+    @Log(title = "【删除商户检测】", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {
