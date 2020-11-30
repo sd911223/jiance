@@ -113,6 +113,7 @@
 
     $(function () {
         var options = {
+            rowStyle: rowStyle,
             url: prefix + "/list",
             createUrl: prefix + "/add",
             updateUrl: prefix + "/edit/{id}",
@@ -190,7 +191,7 @@
                         sb+='                <div class="modal-header">';
                         sb+='                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>';
                         sb+='                    </button>';
-                        sb+='                    <h4 class="modal-title">二维码</h4>';
+                        sb+='                    <h4 class="modal-title" style="color:#000; font-size: 18px;"> 环境检测结果公示</h4>';
                         sb+='                </div>';
                         sb+='                <div class="modal-body">';
                         sb+='                </div>';
@@ -210,6 +211,18 @@
         };
         $.table.init(options);
     });
+
+    function rowStyle(row,index) {
+        var style = {};
+        console.log(row)
+        if(row.reserved1 == '过期'){
+            style={css:{'color':'#ed5565'}};
+        }
+        if(row.reserved1 == '未过期'){
+            style={css:{'color':'#1ab394'}};
+        }
+        return style;
+    }
 
     function selectCheckUser(id){
         var elDom = '#'+ id;

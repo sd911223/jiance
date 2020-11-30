@@ -27,11 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectBusinessDetectList" parameterType="BusinessDetect" resultMap="BusinessDetectResult">
         <include refid="selectBusinessDetectVo"/>
         <where>  
-            <if test="detectAddress != null  and detectAddress != ''"> and detect_address = #{detectAddress}</if>
-            <if test="detectDepartment != null  and detectDepartment != ''"> and detect_department = #{detectDepartment}</if>
-            <if test="detectResult != null  and detectResult != ''"> and detect_result = #{detectResult}</if>
+            <if test="detectAddress != null  and detectAddress != ''"> and detect_address like CONCAT('%',#{detectAddress},'%')</if>
+            <if test="detectDepartment != null  and detectDepartment != ''"> and detect_department like CONCAT('%',#{detectDepartment},'%')</if>
+            <if test="detectResult != null  and detectResult != ''"> and detect_result like  CONCAT('%',#{detectResult},'%')</if>
             <if test="detectData != null "> and detect_data = #{detectData}</if>
-            <if test="detectAgency != null  and detectAgency != ''"> and detect_agency = #{detectAgency}</if>
+            <if test="detectAgency != null  and detectAgency != ''"> and detect_agency like CONCAT('%',#{detectAgency},'%')</if>
             <if test="examineDays != null "> and examine_days = #{examineDays}</if>
             <if test="isEffective != null  and isEffective != ''"> and is_effective = #{isEffective}</if>
             <if test="reserved1 != null  and reserved1 != ''"> and reserved_1 = #{reserved1}</if>
