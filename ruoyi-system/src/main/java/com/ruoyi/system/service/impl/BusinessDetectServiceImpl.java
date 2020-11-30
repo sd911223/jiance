@@ -90,8 +90,8 @@ public class BusinessDetectServiceImpl implements IBusinessDetectService {
 
     @Override
     public String importBusinessDetect(List<BusinessDetect> userList, boolean updateSupport) {
-        this.importUser(userList, true);
-        return null;
+
+        return this.importUser(userList, true);
     }
 
     /**
@@ -113,7 +113,16 @@ public class BusinessDetectServiceImpl implements IBusinessDetectService {
             businessDetect.setIsEffective("effective");
             try {
                 // 验证是否存在这个用户
-                businessDetectMapper.insertBusinessDetect(businessDetect);
+                BusinessDetect detect = new BusinessDetect();
+                detect.setDetectAddress(businessDetect.getDetectAddress());
+                List<BusinessDetect> list = businessDetectMapper.selectBusinessDetectList(detect);
+                if (list.isEmpty()) {
+                    businessDetectMapper.insertBusinessDetect(businessDetect);
+                } else {
+                    businessDetect.setId(list.get(0).getId());
+                    businessDetectMapper.updateBusinessDetect(businessDetect);
+                }
+
             } catch (Exception e) {
                 failureNum++;
                 String msg = "<br/>" + failureNum + "、账号 " + businessDetect.getExamineDays() + " 导入失败：";

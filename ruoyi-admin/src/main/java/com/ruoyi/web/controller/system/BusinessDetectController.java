@@ -129,7 +129,7 @@ public class BusinessDetectController extends BaseController {
         String format = sdf.format(businessDetect.getDetectData());
         businessDetect.setReserved2(format);
         mmap.put("businessDetect", businessDetect);
-        return "/index22";
+        return prefix + "/qrcode";
     }
 
     /**
