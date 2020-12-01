@@ -10,11 +10,16 @@ import com.ruoyi.system.domain.BusinessDetect;
 import com.ruoyi.system.service.IBusinessDetectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -61,6 +66,37 @@ public class BusinessDetectController extends BaseController {
         }
 
         return getDataTable(list);
+    }
+
+    /**
+     * 导出【商户检测】列表
+     */
+
+    @GetMapping("/download")
+    public void download(@RequestParam("id") Long id, HttpServletResponse response) throws IOException {
+        try {
+            Resource resource = new ClassPathResource("poi/" + id + ".xlsx");
+            File file = resource.getFile();
+            String filename = resource.getFilename();
+            InputStream inputStream = new FileInputStream(file);
+            //强制下载不打开
+            response.setContentType("application/force-download");
+            OutputStream out = response.getOutputStream();
+            //使用URLEncoder来防止文件名乱码或者读取错误
+            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+            int b = 0;
+            byte[] buffer = new byte[1000000];
+            while (b != -1) {
+                b = inputStream.read(buffer);
+                if (b != -1) out.write(buffer, 0, b);
+            }
+            inputStream.close();
+            out.close();
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

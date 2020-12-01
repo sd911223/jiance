@@ -28,7 +28,8 @@
         <h2>检验天数</h2>
         <p th:text="${businessDetect.examineDays}+'天'"></p>
         <h2>检测部位</h2>
-        <p th:text="${businessDetect.detectDepartment}"></p>
+        <button id="upload" type="button" class="btn btn-warning">下载</button>
+        <p  id="uploadData"  style="display: none;" th:text="${businessDetect.detectDepartment}"></p>
         <p id="reserved1" style="display: none;" th:text="${businessDetect.reserved1}"></p>
     </div>
 
@@ -56,12 +57,22 @@
     var mainContent = document.getElementById('mainContent');
     var reserved1 = document.getElementById('reserved1');
 
-    if(reserved1.innerHTML=="expired"){
+
+    if(reserved1.innerText=="expired"){
         mainContent.style.background="#E6A23C"
     }
-    if(reserved1.innerHTML=="Nexpired"){
+    if(reserved1.innerText=="Nexpired"){
         mainContent.style.background="#67C23A"
     }
+
+    var upload = document.getElementById('upload');
+    var uploadData = document.getElementById('uploadData');
+    var id = '';
+    upload.onclick = function(){
+        id = uploadData.innerHTML;
+        window.open('http://106.124.136.211:18088/system/detect/download?id='+id);
+    }
+
 
 
 
