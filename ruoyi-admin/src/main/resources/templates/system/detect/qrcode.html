@@ -11,6 +11,20 @@
         .main-box h1{ display: block; font-size: 0.32rem; margin-top: 0.3rem;}
         .main-box h2{ display: block; font-size: 0.32rem; margin-top: 0.3rem;}
         .main-box p{display: block; font-size: 0.24rem; border-bottom: 1px solid #e4e4e4; padding-bottom: 0.3rem;}
+
+        a.btn{
+            text-decoration: none;
+            color: #333;
+            display: block;
+            font-size: 0.24rem;
+            background: #fff;
+            border: 1px solid #dcdfe6;
+            width: 1rem;
+            height: 32px;
+            line-height: 32px;
+            text-align: center;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -28,13 +42,15 @@
         <h2>检验天数</h2>
         <p th:text="${businessDetect.examineDays}+'天'"></p>
         <h2>检测部位</h2>
-        <button id="upload" type="button" class="btn btn-warning">下载</button>
-        <p  id="uploadData"  style="display: none;" th:text="${businessDetect.detectDepartment}"></p>
+
+        <a class="btn" th:href="'/poi/excel.html?id='+${businessDetect.detectDepartment}">下载</a>
         <p id="reserved1" style="display: none;" th:text="${businessDetect.reserved1}"></p>
     </div>
 
 </div>
+
 </body>
+
 <script>
     (function (doc, win) {
         var docEl = doc.documentElement,
@@ -57,25 +73,19 @@
     var mainContent = document.getElementById('mainContent');
     var reserved1 = document.getElementById('reserved1');
 
-
     if(reserved1.innerText=="expired"){
         mainContent.style.background="#E6A23C"
     }
     if(reserved1.innerText=="Nexpired"){
         mainContent.style.background="#67C23A"
     }
-
-    var upload = document.getElementById('upload');
-    var uploadData = document.getElementById('uploadData');
-    var id = '';
-    upload.onclick = function(){
-        id = uploadData.innerHTML;
-        window.open('http://106.124.136.211:18088/system/detect/download?id='+id);
-    }
-
-
-
-
-
+    //
+    // var upload = document.getElementById('upload');
+    // var uploadData = document.getElementById('uploadData');
+    // var id = '';
+    // upload.onclick = function(){
+    //     id = uploadData.innerHTML;
+    //     window.open('http://106.124.136.211:18088/system/detect/download?id='+id);
+    // }
 </script>
 </html>

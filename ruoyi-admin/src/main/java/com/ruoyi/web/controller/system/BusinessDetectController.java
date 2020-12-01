@@ -75,7 +75,7 @@ public class BusinessDetectController extends BaseController {
     @GetMapping("/download")
     public void download(@RequestParam("id") Long id, HttpServletResponse response) throws IOException {
         try {
-            Resource resource = new ClassPathResource("poi/" + id + ".xlsx");
+            Resource resource = new ClassPathResource("static/poi/" + id + ".xlsx");
             File file = resource.getFile();
             String filename = resource.getFilename();
             InputStream inputStream = new FileInputStream(file);
