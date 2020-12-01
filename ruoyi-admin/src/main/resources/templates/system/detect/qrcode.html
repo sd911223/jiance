@@ -16,7 +16,7 @@
 <body>
 <div class="main-box">
     <!-- <h1>检测结果</h1> -->
-    <div  class="main-content">
+    <div id="mainContent"  class="main-content" style="background: #E6A23C">
         <h2>检测地址</h2>
         <p th:text="${businessDetect.detectAddress}"></p>
         <h2>检测结果</h2>
@@ -29,7 +29,9 @@
         <p th:text="${businessDetect.examineDays}+'天'"></p>
         <h2>检测部位</h2>
         <p th:text="${businessDetect.detectDepartment}"></p>
+        <p id="reserved1" style="display: none;" th:text="${businessDetect.reserved1}"></p>
     </div>
+
 </div>
 </body>
 <script>
@@ -50,5 +52,19 @@
         win.addEventListener(resizeEvt, recalc, false);
         doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
+
+    var mainContent = document.getElementById('mainContent');
+    var reserved1 = document.getElementById('reserved1');
+
+    if(reserved1.innerHTML=="expired"){
+        mainContent.style.background="#E6A23C"
+    }
+    if(reserved1.innerHTML=="Nexpired"){
+        mainContent.style.background="#67C23A"
+    }
+
+
+
+
 </script>
 </html>
