@@ -114,7 +114,7 @@ public class BusinessDetectServiceImpl implements IBusinessDetectService {
             try {
                 // 验证是否存在这个用户
                 BusinessDetect detect = new BusinessDetect();
-                detect.setDetectAddress(businessDetect.getDetectAddress());
+                detect.setDetectAddress(businessDetect.getDetectAddress().trim());
                 List<BusinessDetect> list = businessDetectMapper.selectBusinessDetectList(detect);
                 if (list.isEmpty()) {
                     businessDetectMapper.insertBusinessDetect(businessDetect);
