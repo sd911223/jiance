@@ -48,7 +48,7 @@ public class BusinessDetectController extends BaseController {
     public TableDataInfo list(BusinessDetect businessDetect) {
         startPage();
         String loginName = ShiroUtils.getLoginName();
-        if (!"admin".equals(loginName) || !"".equals(loginName)) {
+        if (!"admin".equals(loginName) && !"shiquzhanghao".equals(loginName)) {
             businessDetect.setReserved2(loginName);
         }
         businessDetect.setIsEffective("effective");
