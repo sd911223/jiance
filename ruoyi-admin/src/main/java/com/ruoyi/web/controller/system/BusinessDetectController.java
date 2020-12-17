@@ -5,21 +5,17 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.ShiroUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.system.domain.BusinessDetect;
 import com.ruoyi.system.service.IBusinessDetectService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -51,6 +47,10 @@ public class BusinessDetectController extends BaseController {
     @ResponseBody
     public TableDataInfo list(BusinessDetect businessDetect) {
         startPage();
+        String loginName = ShiroUtils.getLoginName();
+        if (!"admin".equals(loginName) || !"".equals(loginName)) {
+            businessDetect.setReserved2(loginName);
+        }
         businessDetect.setIsEffective("effective");
         List<BusinessDetect> list = businessDetectService.selectBusinessDetectList(businessDetect);
         //判断是否过期
