@@ -56,7 +56,7 @@ public class BusinessDetect extends BaseEntity
     private String reserved2;
 
     /** 预留3 */
-//    @Excel(name = "预留3")
+    @Excel(name = "预留3")
     private String reserved3;
 
     /** 预留4 */

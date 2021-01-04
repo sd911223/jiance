@@ -116,11 +116,11 @@ public class BusinessDetectServiceImpl implements IBusinessDetectService {
                 BusinessDetect detect = new BusinessDetect();
                 detect.setDetectAddress(businessDetect.getDetectAddress().trim());
                 List<BusinessDetect> list = businessDetectMapper.selectBusinessDetectList(detect);
-                if (list.isEmpty()) {
-                    businessDetectMapper.insertBusinessDetect(businessDetect);
-                } else {
+                if (!list.isEmpty()) {
                     businessDetect.setId(list.get(0).getId());
                     businessDetectMapper.updateBusinessDetect(businessDetect);
+                } else {
+                    businessDetectMapper.insertBusinessDetect(businessDetect);
                 }
 
             } catch (Exception e) {
