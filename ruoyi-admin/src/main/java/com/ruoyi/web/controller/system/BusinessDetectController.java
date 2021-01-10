@@ -132,7 +132,7 @@ public class BusinessDetectController extends BaseController {
         BusinessDetect businessDetect = businessDetectService.selectBusinessDetectById(id);
         SimpleDateFormat sdf = new SimpleDateFormat(" yyyy-MM-dd HH:mm:ss ");
         String format = sdf.format(businessDetect.getDetectData());
-        businessDetect.setReserved2(format);
+        businessDetect.setReserved5(format);
         mmap.put("businessDetect", businessDetect);
         return prefix + "/qrcode";
     }

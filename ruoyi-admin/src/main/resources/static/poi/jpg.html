@@ -12,11 +12,15 @@
     </style>
 </head>
 <body class="gray-bg">
-<div class="container" id="container"></div>
+<div class="container" id="container">
+
+</div>
 </body>
 <!--<script src="https://hulalalalala.github.io/XlsxSimplify/dist/Xlsx.js"></script>-->
 <script th:inline="javascript">
-    document.getElementById('container').innerHTML = ' <img class="imgbox" src="/poi/'+ getQueryVariable("id") +'.jpg" alt="">';
+    var id = getQueryVariable("id");
+    document.getElementById('container').innerHTML = ' <img class="imgbox" src="'+ decodeURI(id) +'" alt="">';
+
     function getQueryVariable(variable)
     {
         let query = window.location.search.substring(1);

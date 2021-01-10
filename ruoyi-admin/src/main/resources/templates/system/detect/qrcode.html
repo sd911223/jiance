@@ -12,7 +12,7 @@
         .main-box h2{ display: block; font-size: 0.32rem; margin-top: 0.3rem;}
         .main-box p{display: block; font-size: 0.24rem; border-bottom: 1px solid #e4e4e4; padding-bottom: 0.3rem;}
 
-        a.btn{
+        span.btn{
             text-decoration: none;
             color: #333;
             display: block;
@@ -36,14 +36,15 @@
         <h2>检测结果</h2>
         <p th:text="${businessDetect.detectResult}"></p>
         <h2>检测时间</h2>
-        <p th:text="${businessDetect.reserved2}"></p>
+        <p th:text="${businessDetect.reserved5}"></p>
         <h2>检测机构</h2>
         <p th:text="${businessDetect.detectAgency}"></p>
         <h2>检验天数</h2>
         <p th:text="${businessDetect.examineDays}+'天'"></p>
         <h2>检测部位</h2>
 
-        <a class="btn" th:href="'/poi/jpg.html?id='+${businessDetect.detectDepartment}">下载</a>
+        <span class="btn" id="upload-btn">下载</span>
+        <p style="display: none" id="upload-cont" th:text="${businessDetect.detectDepartment}"></p>
         <p id="reserved1" style="display: none;" th:text="${businessDetect.reserved1}"></p>
     </div>
 
@@ -79,6 +80,16 @@
     if(reserved1.innerText=="Nexpired"){
         mainContent.style.background="#67C23A"
     }
+
+    // /poi/jpg.html?id='+encodeURI(${businessDetect.detectDepartment})
+
+    var uploadBtn = document.getElementById('upload-btn');
+    var uploadCont = document.getElementById('upload-cont');
+
+    uploadBtn.onclick = function(){
+        window.location.href = "/poi/jpg.html?id="+ encodeURI(uploadCont.innerText);
+    };
+
     //
     // var upload = document.getElementById('upload');
     // var uploadData = document.getElementById('uploadData');

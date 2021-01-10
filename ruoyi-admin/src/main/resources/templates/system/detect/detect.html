@@ -147,7 +147,12 @@
                 },
                 {
                     field: 'detectDepartment',
-                    title: '检测部位'
+                    title: '检测部位',
+                    formatter:function(value, row, index){
+                        // var actions = [];
+                        // actions.push('<img src="'+ row.detectDepartment+'" / >');
+                        return $.table.imageView(value,'auto','auto','blank');
+                    }
                 },
                 {
                     field: 'detectResult',
@@ -245,6 +250,7 @@
                 width: 200,
                 height: 200,
                 text: 'http://106.124.136.211:18088/system/detect/edit1?id='+id
+                // text: 'http://127.0.0.1:18088/system/detect/edit1?id='+id
             });
         },0)
         // $.modal.open("选择用户", prefix + "/check");
